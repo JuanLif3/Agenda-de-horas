@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
+import { Pet } from "../../pets/entities/pet.entity";
 
 @Entity('users') // Nombre de la tabla en Neon
 export class User {
@@ -17,9 +18,12 @@ export class User {
     @Column('text', { default: 'client' })
     role: string; // Admin o cliente
 
+    @OneToMany(() => Pet, (Pet) => Pet.user)
+    pets: Pet[];
+
     @CreateDateColumn()
     createdAt: Date;
 
     @UpdateDateColumn()
-    updateAt: Date;
+    updatedAt: Date;
 }

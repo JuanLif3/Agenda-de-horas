@@ -1,6 +1,8 @@
-import { Controller, Body, Post } from '@nestjs/common';
+import { Controller, Body, Post, Get, UseGuards, Req } from '@nestjs/common';
+import { Request } from 'express';
 import { AuthService } from './auth.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -10,4 +12,11 @@ export class AuthController {
     login(@Body() loginAuthDto: LoginAuthDto) {
         return this.authService.login(loginAuthDto);
     }
+    // --- NUEVA RUTA PROTEGIDA ---
+    @Get('profile')
+    @UseGuards(AuthGuard('jwt'))
+    getProfile(@Req() req: Request) {
+        return req.user;
+    }
 }
+

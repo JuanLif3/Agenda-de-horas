@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from '../modules/users/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
+import { PetsModule } from '../modules/pets/pets.module';
 @Module({
   imports: [
     // 1. ConfigModule para leer el archivo .env
@@ -29,6 +30,8 @@ import { AuthModule } from '../modules/auth/auth.module';
     UsersModule,
 
     AuthModule,
+
+    PetsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
