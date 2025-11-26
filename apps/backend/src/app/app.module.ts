@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { UsersModule } from '../modules/users/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
 import { PetsModule } from '../modules/pets/pets.module';
+import { ServicesModule } from '../modules/services/services.module';
+import { AppointmentsModule } from '../modules/appointments/appointments.module';
 @Module({
   imports: [
     // 1. ConfigModule para leer el archivo .env
@@ -32,6 +34,10 @@ import { PetsModule } from '../modules/pets/pets.module';
     AuthModule,
 
     PetsModule,
+
+    ServicesModule,
+
+    AppointmentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
