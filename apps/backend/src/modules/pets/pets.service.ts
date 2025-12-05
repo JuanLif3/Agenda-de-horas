@@ -21,10 +21,17 @@ export class PetsService {
     return this.petRepository.save(pet);
   }
 
-  findAll() {
-    return this.petRepository.find({
-      relations: ['user'], // Para ver quién es el dueño al consultar
-    })
+  findAll(user: any) {
+    const options: any = {
+      relations: ['user'],
+    };
+
+    // Si NO es admin, filtramos para que solo vea SUS mascotas
+    if (user.role !== 'admin') {
+      options.where = { userId: user.userId };
+    }
+
+    return this.petRepository.find(options);
   }
 
   findOne(id: string) {

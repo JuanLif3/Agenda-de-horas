@@ -27,13 +27,9 @@ export class PetsController {
   }
 
   @Get()
-  findAll(user: any) {
-    const options: any = {};
-
-    if(user.role !== 'admin') {
-      options.where = {userId: user.userId};
-    }
-    return this.petRepository.find(options);
+  @UseGuards(AuthGuard('jwt'))
+  findAll(@Request() req) {
+    return this.petsService.findAll(req.user);
   }
 
   @Get(':id')
