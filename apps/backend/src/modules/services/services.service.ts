@@ -17,7 +17,7 @@ export class ServicesService {
   }
 
   findAll() {
-    return `This action returns all services`;
+    return this.serviceRepository.find();
   }
 
   async findOne(id: string) {

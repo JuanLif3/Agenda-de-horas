@@ -16,6 +16,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 @Controller('pets')
 export class PetsController {
+  petRepository: any;
   constructor(private readonly petsService: PetsService) {}
 
   @Post()
@@ -26,8 +27,13 @@ export class PetsController {
   }
 
   @Get()
-  findAll() {
-    return this.petsService.findAll();
+  findAll(user: any) {
+    const options: any = {};
+
+    if(user.role !== 'admin') {
+      options.where = {userId: user.userId};
+    }
+    return this.petRepository.find(options);
   }
 
   @Get(':id')

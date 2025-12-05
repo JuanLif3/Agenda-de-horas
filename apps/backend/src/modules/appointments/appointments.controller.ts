@@ -17,9 +17,9 @@ export class AppointmentsController {
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
-  findAll() {
+  findAll(@Request() req) {
     // Aquí verías todas las reservas. En un sistema real filtrarías por rol.
-    return this.appointmentsService.findAll();
+    return this.appointmentsService.findAll(req.user);
   }
 
   @Get(':id')

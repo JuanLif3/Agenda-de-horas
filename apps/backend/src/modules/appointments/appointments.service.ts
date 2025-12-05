@@ -77,11 +77,22 @@ export class AppointmentsService {
     return this.appointmentRepository.save(appointment);
   }
 
-  findAll() {
-    return this.appointmentRepository.find({
-      relations: ['user', 'pet', 'service'], // Trae toda la info relacionada
+  findAll(user: any) {
+    // Opciones base de la consulta
+    const options: any = {
+      relations: ['pet', 'service'], // Quitamos 'user' para no enviar datos sensibles del dueño si no es necesario
       order: { date: 'ASC' },
-    });
+    };
+
+    // LÓGICA DE SEGURIDAD:
+    // Si el usuario NO es admin, agregamos un filtro "WHERE userId = ..."
+    if (user.role !== 'admin') {
+      options.where = {
+        userId: user.userId
+      };
+    }
+
+    return this.appointmentRepository.find(options);
   }
 
   findOne(id: string) {
